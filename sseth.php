@@ -5,14 +5,41 @@ function getStr($string,$start,$end){
 	$str = explode($end,($str[1]));
 	return $str[0];
 }
+function login($email,$name,$devid){
+	$arr = array("\r","	");
+	$url = "http://sscoinmedia.tech/EthereumWebService/ethereumUserAdd.php";
+	$h = explode("\n",str_replace($arr,"","User-Agent: Dalvik/2.1.0 (Linux; U; Android 6.0.1; vivo 1606 Build/MMB29M)"));
+	$body = "name=$name&email=$email&devid=$devid&";
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_HTTPHEADER, $h);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
+	curl_setopt($ch, CURLOPT_POST, 1);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	$x = curl_exec($ch);
+	curl_close($ch);
+	return timer($email,$devid);
+}
+function timer($email,$devid){
+	$arr = array("\r","	");
+	$url = "http://sscoinmedia.tech/EthereumWebService/ethereumClaimTimer1.php";
+	$h = explode("\n",str_replace($arr,"","User-Agent: Dalvik/2.1.0 (Linux; U; Android 6.0.1; vivo 1606 Build/MMB29M)"));
+	$body = "email=$email&devid=$devid&";
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_HTTPHEADER, $h);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
+	curl_setopt($ch, CURLOPT_POST, 1);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	$x = curl_exec($ch);
+	curl_close($ch);
+	return claim($email,$devid);
+}
 function claim($email,$devid){
 	$arr = array("\r","	");
 	$url = "http://sscoinmedia.tech/EthereumWebService/ethereumBalanceUpdate1.php";
-	$h = explode("\n",str_replace($arr,"","Content-Type: application/x-www-form-urlencoded; charset=UTF-8
-	User-Agent: Dalvik/2.1.0 (Linux; U; Android 6.0.1; vivo 1606 Build/MMB29M)
-	Host: sscoinmedia.tech
-	Connection: Keep-Alive"));
-	$body = "email=$email&devid=$devid&claimok=ok&";
+	$h = explode("\n",str_replace($arr,"","User-Agent: Dalvik/2.1.0 (Linux; U; Android 6.0.1; vivo 1606 Build/MMB29M)"));
+	$body = "email=$email&devid=$devid&claimok=ok";
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, $url);
 	curl_setopt($ch, CURLOPT_HTTPHEADER, $h);
@@ -24,12 +51,13 @@ function claim($email,$devid){
 	return json_decode($x,true);
 }
 echo "#################\n#  @muhtoevill  #\n#   SGB-Team    #\n#  Binary-Team  #\n#################\n";
-echo "email	:";
+echo "email :";
 $email = trim(fgets(STDIN));
-echo "devid	:";
+echo "devid(Note Simpan devid nya untuk login lagi!!) :";
 $devid = trim(fgets(STDIN));
+$name = explode("@",$email)[0];
 while(TRUE){
-	$submit = claim($email,$devid);
+	$submit = login($email,$name,$devid);
 	$output = json_encode($submit);
 	$balance = getStr($output,'"message":',',');
 	$balance = getStr($output,'"ubal":',',');

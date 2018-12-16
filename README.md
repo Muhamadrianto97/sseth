@@ -39,6 +39,13 @@ Link Apk : https://play.google.com/store/apps/details?id=org.sssj.com.sseth
 
 # C9/CODEANYWHERE
 
+Note:Untuk C9/Codeanywhere kalian Harus Bikin akun nya di c9/codeanywherenya
+	Jadi saat kalian menjalankan php sseth.php Masukan GMAIL aktif
+	ini register sekaligus login
+	dan devid asal contoh devid:8655880329xxxxx
+	Kalian tinggal ubah 5 angka di belakang.
+	Jangan lupa Simpan Devid nya...
+
 1.bikin workspaces PHP/apache (kalo udah ada skip)
 
 2.sudo apt update (kalo udah pernah skip)
